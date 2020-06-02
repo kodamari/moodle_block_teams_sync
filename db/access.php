@@ -15,16 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Feedback block caps.
  *
- * @package    block_teams_sync
- * @author     Hirotaka Itoh <ht-itoh@nitech.ac.jp>, Naoki Maeda <maeda.naoki@nitech.ac.jp>
- * @copyright  (C) 2020 onwards NITech Information Technology Center (https://www.cc.nitech.ac.jp)  
+ * @package    block_feedback
+ * @copyright  Mark Nelson <markn@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2020040401;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2018050800;        // Requires this Moodle version
-$plugin->component = 'block_teams_sync'; // Full name of the plugin (used for diagnostics)
+$capabilities = array(
+
+    'block/teams_sync:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+);
